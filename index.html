@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./public/style/style.css">
+    <script src="./script/main.js" defer></script>
+    <script src="./script/map.js" defer></script>
+    <script src="./script/dropdownMenu.js" defer></script>
+    <script src="./script/siteData.js" defer></script>
+    <script src="./script/trendGraph.js" defer></script>
+    <script src="./script/airQualityIndex.js" defer></script>
+    <title>台灣空氣品質監測網</title>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="header__title-wrapper">
+                <img src="https://airtw.moenv.gov.tw/images/logo.png" alt=""/>
+                <p class="header__title">空氣品質監測網</p>
+            </div>
+            <div class="header__navbar">
+                <a href="#map">空氣品質地圖</a>
+                <a href="#data_site">監測站監測數值</a>
+                <a href="#data_trend">濃度趨勢圖</a>
+                <a href="#data_aqc_graph">空氣品質濃度圖</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="data-section">
+            <div class="data__head">
+                <p class="data__title">中央監測資料</p>
+            </div>
+            <hr class="divider">
+            <!-- dropdownMenu -->
+            <p class="message" >請於地圖點選測站或選擇下列選單</p>
+            <div class="data__search">
+                <div class="dropdown__container">
+                    <div class="dropdown__select-container">
+                        <label class="dropdown__label">空品區：</label>
+                        <select class="dropdown__select" id="area_select"></select>
+                    </div>
+                    <div class="dropdown__select-container">
+                        <label class="dropdown__label">縣市：</label>
+                        <select class="dropdown__select" id="city_select"></select>
+                    </div>
+                    <div class="dropdown__select-container">
+                        <label class="dropdown__label">測站名稱：</label>
+                        <select class="dropdown__select" id="site_select"></select>
+                    </div>
+                    <div class="dropdown__select-container">
+                        <label class="dropdown__label">時間：</label>
+                        <select class="dropdown__select" id="time_select"></select>
+                    </div>
+                </div>
+                <button class="data__search-button" id="search_button">查詢</button>
+            </div>
+            <!-- map -->
+            <div class="data__map" id="map"></div>
+            <hr class="divider">
+            <!-- site data -->
+            <div class="data__site" id="data_site">
+                <div class="site__header">
+                    <img class="site__logo" src="https://airtw.moenv.gov.tw/images/logo.png"/>
+                    <p class="site__name" id="site_name">基隆</p>
+                    <p class="site__department">環境部</p>
+                </div>
+                <p class="site__title">監測數值</p>
+                <p class="site__subTitle">發布時間：<span id="site_time">2023/10/16 19:00</span></p>
+                <div class="site__index-aqi-container" >
+                    <p class="index__title">空氣品質指標AQI</p>
+                    <p class="index__description">指標污染物 : 臭氧八小時</p>
+                    <p class="index__result-description" id="aqi_description"></p>
+                    <p class="index__result" id="result_aqi"></p>
+                </div>
+                <div class="site__data-container">
+                    <!-- row1 -->
+                    <div class="site__index-container">
+                        <p class="index__title">細懸浮微粒 PM<sub>2.5</sub></p>
+                        <p class="index__description">小時移動平均(μg/m<sup>3</sup>)</p>
+                        <p class="index__result" id="result_pm2dot5"></p>
+                    </div>
+                    <div class="site__index-container">
+                        <p class="index__title">懸浮微粒 PM<sub>10</sub></p>
+                        <p class="index__description">小時移動平均(μg/m<sup>3</sup>)</p>
+                        <p class="index__result" id="result_pm10"></p>
+                    </div>
+                    <div class="site__index-container">
+                        <p class="index__title">臭氧 O<sub>3</sub></p>
+                        <p class="index__description">8小時移動平均(ppb)</p>
+                        <p class="index__result" id="result_O3"></p>
+                    </div>
+                    <!-- row2 -->
+                    <div class="site__index-container">
+                        <p class="index__title">一氧化碳 CO</p>
+                        <p class="index__description">8小時移動平均(ppm)</p>
+                        <p class="index__result" id="result_CO"></p>
+                    </div>
+                    <div class="site__index-container">
+                        <p class="index__title">二氧化硫 SO<sub>2</sub></p>
+                        <p class="index__description">小時濃度值(ppb)</p>
+                        <p class="index__result" id="result_SO2"></p>
+                    </div>
+                    <div class="site__index-container">
+                        <p class="index__title">二氧化氮 NO<sub>2</sub></p>
+                        <p class="index__description">小時濃度值(ppb)</p>
+                        <p class="index__result" id="result_NO2"></p>
+                    </div>
+                    <!-- row3 -->
+                    <div class="site__index-container">
+                        <p class="index__title">細懸浮微粒 PM<sub>2.5</sub></p>
+                        <p class="index__description">小時濃度值(μg/m<sup>3</sup>)</p>
+                        <p class="index__result" id="result_pm2dot5_concentration"></p>
+                    </div>
+                    <div class="site__index-container">
+                        <p class="index__title">懸浮微粒 PM<sub>10</sub></p>
+                        <p class="index__description">小時濃度值(μg/m<sup>3</sup>)</p>
+                        <p class="index__result" id="result_pm10_concentration"></p>
+                    </div>
+                    <div class="site__index-container">
+                        <p class="index__title">臭氧 O<sub>3</sub></p>
+                        <p class="index__description">小時濃度值(ppb)</p>
+                        <p class="index__result" id="result_ozone_concentration"></p>
+                    </div>
+                    <!-- row4 -->
+                    <div class="site__index-container">
+                        <p class="index__title">一氧化碳 CO</p>
+                        <p class="index__description">小時濃度值(ppm)</p>
+                        <p class="index__result" id="result_CO_concentration"></p>
+                    </div>
+                    <div class="site__index-container">
+                        <p class="index__title">非甲烷碳氫化合物 NMHC</p>
+                        <p class="index__description">小時濃度值(ppm)</p>
+                        <p class="index__result" id="result_NMHC">未監測</p>
+                    </div>
+                    <div class="site__index-container">
+                        <p class="index__title">風速 Wind_Speed</p>
+                        <p class="index__description">小時平均值(m/s)</p>
+                        <p class="index__result" id="result_wind_speed"></p>
+                    </div>
+                    <!-- row5 -->
+                    <div class="site__index-container">
+                        <p class="index__title">風向 Wind_Direct</p>
+                        <p class="index__description">小時平均值(度)</p>
+                        <p class="index__result" id="result_wind_direct"></p>
+                    </div>
+                    <div class="site__index-container">
+                        <p class="index__title">濕度 RH</p>
+                        <p class="index__description">小時平均值(%)</p>
+                        <p class="index__result" id="result_humidity"></p>
+                    </div>
+                </div>
+                <div class="data__index">
+                    <p class="index__title">空氣品質指標 (AQI)</p>
+                    <div class="index__table">
+                        <div class="index__box">
+                            <p class="index__name">良好</p>
+                            <p class="index__range">0~50</p>
+                        </div>
+                        <div class="index__box">
+                            <p class="index__name">普通</p>
+                            <p class="index__range">51~100</p>
+                        </div>
+                        <div class="index__box">
+                            <p class="index__name">對敏感族群不健康</p>
+                            <p class="index__range">101~150</p>
+                        </div>
+                        <div class="index__box">
+                            <p class="index__name">對所有族群不健康</p>
+                            <p class="index__range">151~200</p>
+                        </div>
+                        <div class="index__box">
+                            <p class="index__name">非常不健康</p>
+                            <p class="index__range">201~300</p>
+                        </div>
+                        <div class="index__box">
+                            <p class="index__name">危害</p>
+                            <p class="index__range">301~500</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="data__trend" id="data_trend">
+                <p class="trend__title">近72小時測項濃度趨勢圖</p>
+                <p class="trend__subTitle">時間區間：<span id="detect_start_time">2023/10/13 22:00</span> ~ <span id="detect_end_time">2023/10/16 21:00</span>(發布時間)</p>
+                <div class="trend__graph" id="trend_graph_container"></div>
+            </div>
+            <hr class="divider">
+            <div class="data__aqc-graph" id="data_aqc_graph">
+                <p class="aqc__title"></p>
+                <div class="aqc__controller">
+                    <div class="aqc__options">
+                        <button class="options__button" id="aqc_option_pm2dot5">PM<sub>2.5</sub></button>
+                        <button class="options__button" id="aqc_option_pm10">PM<sub>10</sub></button>
+                        <button class="options__button" id="aqc_option_O3">O<sub>3</sub></button>
+                        <button class="options__button" id="aqc_option_CO">CO</button>
+                        <button class="options__button" id="aqc_option_SO2">SO<sub>2</sub></button>
+                        <button class="options__button" id="aqc_option_NO2">NO<sub>2</sub></button>
+                    </div>
+                    <div class="aqc__progress-bar">
+
+                    </div>
+                </div>
+                <div class="aqc__render">
+                    <div class="aqc__subTitle">
+                        發布時間：<span id="aqc_time"></span>
+                        <button class="aqc_button" id="aqc_option_shuffle_button">
+                            <img src="./public/icon/change-25.png"/>
+                        </button>
+                    </div>
+                    <div class="aqc__islands" id="islands"></div>
+                    <div class="aqc__main-land" id="main_land"></div>
+                    <div class="aqc__legend" id="legend"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p class="footer__text">2023 wehelp bootcamp 4th team-11</p>
+    </footer>
+</body>
+</html>
