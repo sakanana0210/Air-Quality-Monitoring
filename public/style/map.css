@@ -1,0 +1,44 @@
+.circle-text-red{
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+    color: #000000;
+    opacity: 1;
+    background-color: red;
+    border-radius: 50%;
+}
+.circle-text-orange{
+    size: 90%;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+    color: #000000;
+    opacity: 1;
+    background-color: orange;
+    border-radius: 50%;
+}
+.circle-text-yellow{
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+    color: #000000;
+    opacity: 1;
+    background-color: yellow;
+    border-radius: 50%;
+}
+.circle-text-green{
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    font-size: 14px;
+    color: #000000;
+    opacity: 1;
+    background-color: green;
+    border-radius: 50%;
+}
+.nameStyle{
+    font-size: 16px;
+}
