@@ -19,6 +19,7 @@ const areaSelectionElement = document.getElementById("area_select");
 const citySelectionElement = document.getElementById("city_select");
 const siteSelectionElement = document.getElementById("site_select");
 const timeSelectionElement = document.getElementById("time_select");
+const searchBtn = document.getElementById("search_button");
 
 async function initSetting(url) {
     let response = await fetch(url);
@@ -119,8 +120,18 @@ function setTimeList() {
 	}
 }
 
+function setSearchActions() {
+	let settingTime = timeSelectionElement.value;
+	fetchForMap().then(mapDatas => {
+		createCircle(mapDatas, settingTime);
+	})
+}
+
 // Change select actions
 areaSelectionElement.addEventListener('change', setAreaChangedAction);
 citySelectionElement.addEventListener('change', setCityChangedAction);
+
+// Search
+searchBtn.addEventListener('click', setSearchActions);
 
 initSetting(url);
