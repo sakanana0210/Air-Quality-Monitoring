@@ -13,9 +13,10 @@ let areaMap = [
 	{ "其他":[ {"澎湖縣":[]}, {"金門縣":[]}, {"連江縣":[]} ] }
 ];
 let areaList = areaMap.map(areaItem => Object.keys(areaItem)[0]);
+let cityObjList;
 const defaultIndex = 0;
 const areaSelectionElement = document.getElementById("area_select");
-const countySelectionElement = document.getElementById("city_select");
+const citySelectionElement = document.getElementById("city_select");
 const siteSelectionElement = document.getElementById("site_select");
 const timeSelectionElement = document.getElementById("time_select");
 
@@ -35,8 +36,8 @@ async function initSetting(url) {
 		setCountySite(areaMap[index][areaList[index]]);
 	}
 
-	// fill default selection #TODO
-	setDefaultElement()
+	// fill default options
+	setDefaultOptions()
 }
 
 function setCountySite(area) {
@@ -52,11 +53,8 @@ function setCountySite(area) {
 	}
 }
 
-function setDefaultElement() {
+function setDefaultOptions() {
 	let newOption;
-	let defaultArea = areaMap[defaultIndex][areaList[defaultIndex]];
-	let defaultCityList = defaultArea.map(defaultAreaItem => Object.keys(defaultAreaItem)[0]);
-	let defaultSiteList = defaultArea[defaultIndex][defaultCityList[defaultIndex]];
 
 	// area options
 	for(let areaIndex = 0; areaIndex < areaList.length; areaIndex++) {
@@ -65,21 +63,55 @@ function setDefaultElement() {
 		areaSelectionElement.appendChild(newOption);
 	}
 
-	// county(city) options
-	for(let countyIndex = 0; countyIndex < defaultCityList.length; countyIndex++) {
-		newOption = document.createElement("option");
-		newOption.value = newOption.textContent = defaultCityList[countyIndex];
-		countySelectionElement.appendChild(newOption);
-	}
-
-	// site options
-	for(let siteIndex = 0; siteIndex < defaultSiteList.length; siteIndex++) {
-		newOption = document.createElement("option");
-		newOption.value = newOption.textContent = defaultSiteList[siteIndex];
-		siteSelectionElement.appendChild(newOption);
-	}
+	// set city options and site options after setting default area
+	setAreaChangedAction();
 
 	// time options
+	setTimeList();
+}
+
+function setAreaChangedAction() {
+	let selectedArea = areaSelectionElement.value;
+	cityObjList = areaMap.find(areaItem => {
+							return Object.keys(areaItem)[0] === selectedArea
+						})[selectedArea];
+	let cityList = cityObjList.map(cityItem => Object.keys(cityItem)[0]);
+	let siteList = cityObjList[defaultIndex][cityList[defaultIndex]];
+
+	setCityOptions(cityList);
+	setSiteOptions(siteList);
+}
+
+function setCityChangedAction() {
+	let selectedCity = citySelectionElement.value;
+	let siteList = cityObjList.find(cityItem => {
+								return Object.keys(cityItem)[0] === selectedCity;
+							})[selectedCity];
+	setSiteOptions(siteList);
+}
+
+function setCityOptions(cityList) {
+	let newOption;
+	citySelectionElement.innerHTML = "";
+	for(let cityIndex = 0; cityIndex < cityList.length; cityIndex++) {
+		newOption = document.createElement("option");
+		newOption.value = newOption.textContent = cityList[cityIndex];
+		citySelectionElement.appendChild(newOption);
+	}
+}
+
+function setSiteOptions(siteList) {
+	let newOption;
+	siteSelectionElement.innerHTML = "";
+	for(let siteIndex = 0; siteIndex < siteList.length; siteIndex++) {
+		newOption = document.createElement("option");
+		newOption.value = newOption.textContent = siteList[siteIndex];
+		siteSelectionElement.appendChild(newOption);
+	}
+}
+
+function setTimeList() {
+	let newOption;
 	for(let timeIndex = 0; timeIndex < timeList.length; timeIndex++) {
 		newOption = document.createElement("option");
 		newOption.value = newOption.textContent = timeList[timeIndex];
@@ -87,6 +119,8 @@ function setDefaultElement() {
 	}
 }
 
-initSetting(url);
+// Change select actions
+areaSelectionElement.addEventListener('change', setAreaChangedAction);
+citySelectionElement.addEventListener('change', setCityChangedAction);
 
-// TODO: change select actions
+initSetting(url);
