@@ -1,6 +1,7 @@
 let AQIModule = (function() {
     // Data Initialization
     let is42ndColor = false;
+    let indexItem = "PM25";
     const currentDate = new Date();
     const year = currentDate.getFullYear().toString();
     const month = (currentDate.getMonth() + 1).toString();// 月份从0开始，所以要加1
@@ -30,15 +31,15 @@ let AQIModule = (function() {
     // Change the graph based on the default button
     // Change the default island
     function InitializeAQIElement(){
-        let siteTime = document.getElementById("aqc_time");
-        siteTime.innerText = year+"/"+month+"/"+day+" "+ hours + ":00";
+        let aqiTime = document.getElementById("aqc_time");
+        aqiTime.innerText = year+"/"+month+"/"+day+" "+ hours + ":00";
     }
 
     // Add listener
     function addAQIEventListener(){
         document.querySelector(".aqc__button").addEventListener("click", () => {
             is42ndColor = !is42ndColor;
-            addModelSimulateImage(is42ndColor, date, time, indexMap.get(btn.id));
+            addModelSimulateImage(is42ndColor, date, time, indexItem);
         });
     
         let buttons = document.querySelectorAll(".options__button");
@@ -48,7 +49,8 @@ let AQIModule = (function() {
                 const legend = document.getElementById("legend_name");
                 legend.innerHTML = btn.innerHTML;
                 // image
-                addModelSimulateImage(is42ndColor, date, time, indexMap.get(btn.id));
+                indexItem = indexMap.get(btn.id);
+                addModelSimulateImage(is42ndColor, date, time, indexItem);
             });
         });
     }
