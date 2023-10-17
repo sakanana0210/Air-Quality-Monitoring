@@ -26,7 +26,7 @@ async function initSetting(url) {
 	dataTest = data
 	records = data["records"];
 	timeList = records.filter(recordItem => {
-						return recordItem.sitename === "屏東(枋山)";
+						return recordItem.sitename === records[0].sitename;
 					}).map(recordItem => {
 						return recordItem.datacreationdate;
 					});
