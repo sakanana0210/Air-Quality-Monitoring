@@ -50,6 +50,7 @@ function fetchForMap() {
                 let time = record["datacreationdate"];
                 let sitename = record["sitename"];
                 let aqi = record["aqi"];
+                let county = record["county"];
                 let latitude = record["latitude"];
                 let longitude = record["longitude"];
                 let existingGroup = groupedData.find(group => group.time === time);
@@ -58,7 +59,8 @@ function fetchForMap() {
                         "sitename": sitename,
                         "aqi": aqi,
                         "latitude": latitude,
-                        "longitude": longitude
+                        "longitude": longitude,
+                        "county": county
                     });
                 } else {
                     let newGroup = {
@@ -67,7 +69,8 @@ function fetchForMap() {
                             "sitename": sitename,
                             "aqi": aqi,
                             "latitude": latitude,
-                            "longitude": longitude
+                            "longitude": longitude,
+                            "county": county
                         }]
                     };
                     groupedData.push(newGroup);
@@ -78,12 +81,18 @@ function fetchForMap() {
 }
 
 function createCircle(data, time) {
+    map.eachLayer(function(layer) {
+        if (layer instanceof L.Marker || layer instanceof L.CircleMarker) {
+            map.removeLayer(layer);
+        }
+    });
     data.forEach(function(group) {
         if (group.time === time) {
             let selectDatas = group.data;
             selectDatas.forEach(function(selectData) {
                 let name = selectData.sitename;
                 let aqi = selectData.aqi;
+                let county = selectData.county;
                 let point = [selectData.latitude, selectData.longitude];
                 let color;
                 let textStyle;
@@ -116,12 +125,39 @@ function createCircle(data, time) {
                     }).setContent(name);
                     tooltip2.setLatLng(point);
                     map.openTooltip(tooltip2);
+                    document.dispatchEvent(new CustomEvent('markerClicked', { detail: { name: name, county: county } }));
                 });
 
             });
         }
     });
 }
+
+// Click map select change
+document.addEventListener('markerClicked', function(event) {
+    let markerCity = event.detail.county;
+    let markerName = event.detail.name;
+    let district = '';
+    for (let i = 0; i < areaMap.length; i++) {
+        let areaObject = areaMap[i];
+        let areaName = Object.keys(areaObject)[0];
+        let cityObject = areaObject[areaName].find(cityItem => {
+            return Object.keys(cityItem)[0] === markerCity;
+        });
+        if (cityObject) {
+            district = areaName;
+            break;
+        }
+    }
+    console.log(district, markerCity, markerName,);
+    areaSelectionElement.value = district;
+    let changeEvent = new Event('change');
+    areaSelectionElement.dispatchEvent(changeEvent);
+    citySelectionElement.value = markerCity;
+    citySelectionElement.dispatchEvent(changeEvent);
+        siteSelectionElement.value = markerName;
+    siteSelectionElement.dispatchEvent(changeEvent);
+});
 
 // 將mapDatas[0]["time"]改掉可取得其他時間的地圖標記
 fetchForMap().then(mapDatas => {
