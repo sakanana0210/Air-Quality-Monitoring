@@ -8,7 +8,8 @@ const apiKey = "1fc8a126-ee45-4101-a168-12f15eecfb95"
 const dataLimit = 85
 
 let aqi, aqiStatus, pm2dot5_avg, pm10_avg, o3_8hr, co_8hr, so2, no2
-let statusAirImgUrl
+let statusAirImgUrl, statusColor
+let aqiState
 let greenAirImgUrl = "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2070"
 let yellowAirImgUrl = "https://images.unsplash.com/photo-1529552650426-8e2c6ca5824c?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=1932"
 let orangeAirImgUrl = "https://images.unsplash.com/photo-1532300481631-0bc14f3b7699?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
@@ -47,6 +48,25 @@ const getSiteCurrentData = async () => {
     })
     return result[0]
 }
+
+const regularAdvice = {
+    "good":"正常戶外活動。",
+    "moderate":"正常戶外活動。",
+    "unhealthyForSensitive":"1.一般民眾如果有不適，如眼痛，咳嗽或喉嚨痛等，應該考慮減少戶外活動。\n2.學生仍可進行戶外活動，但建議減少長時間劇烈運動。",
+    "unhealthy":"1.一般民眾如果有不適，如眼痛，咳嗽或喉嚨痛等，應減少體力消耗，特別是減少戶外活動。\n2.學生應避免長時間劇烈運動，進行其他戶外活動時應增加休息時間。",
+    "veryUnhealthy":"1.一般民眾應減少戶外活動。\n2.學生應立即停止戶外活動，並將課程調整於室內進行。",
+    "hazardous":"1.一般民眾應避免戶外活動，室內應緊閉門窗，必要外出應配戴口罩等防護用具。\n2.學生應立即停止戶外活動，並將課程調整於室內進行。"
+}
+
+const sensitiveAdvice = {
+    "good":"正常戶外活動",
+    "moderate":"極特殊敏感族群建議注意可能產生的咳嗽或呼吸急促症狀，但仍可正常戶外活動。",
+    "unhealthyForSensitive":"1.有心臟、呼吸道及心血管疾病患者、孩童及老年人，建議減少體力消耗活動及戶外活動，必要外出應配戴口罩。\n2.具有氣喘的人可能需增加使用吸入劑的頻率。",
+    "unhealthy":"1.有心臟、呼吸道及心血管疾病患者、孩童及老年人，建議留在室內並減少體力消耗活動，必要外出應配戴口罩。\n2.具有氣喘的人可能需增加使用吸入劑的頻率。",
+    "veryUnhealthy":"1.有心臟、呼吸道及心血管疾病患者、孩童及老年人應留在室內並減少體力消耗活動，必要外出應配戴口罩。\n2.具有氣喘的人應增加使用吸入劑的頻率。",
+    "hazardous":"1.有心臟、呼吸道及心血管疾病患者、孩童及老年人應留在室內並避免體力消耗活動，必要外出應配戴口罩。\n2.具有氣喘的人應增加使用吸入劑的頻率。"
+}
+
 const setData = async () => {
     let data = await getSiteCurrentData()
     aqi = data["aqi"]
@@ -64,7 +84,19 @@ const setData = async () => {
                     :(aqi>100 && aqi<=150) ? orangeAirImgUrl
                     :(aqi>150 && aqi<=200) ? redAirImgUrl
                     :(aqi>200 && aqi<=300) ? purpleAirImgUrl
-                    : brownAirImgUrl
+                    : brownAirImgUrl;
+    statusColor = (aqi>0 && aqi<=50) ? 39013
+                    :(aqi>50 && aqi<=100) ? 16775974
+                    :(aqi>100 && aqi<=150) ? 16750388
+                    :(aqi>150 && aqi<=200) ? 13238324
+                    :(aqi>200 && aqi<=300) ? 6750361
+                    : 8257827;
+    aqiState = (aqi>0 && aqi<=50) ? "good"
+                    :(aqi>50 && aqi<=100) ? "moderate"
+                    :(aqi>100 && aqi<=150) ? "unhealthyForSensitive"
+                    :(aqi>150 && aqi<=200) ? "unhealthy"
+                    :(aqi>200 && aqi<=300) ? "veryUnhealthy"
+                    : "hazardous";
 }
 
 const sendMessage = async () =>{
@@ -74,9 +106,9 @@ const sendMessage = async () =>{
     }
     const embedContent = createEmbededMessage()
     const body = {
-        "username":"AQI Notify Robot",
-        "avatar_url":"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Marmot-edit1.jpg/1200px-Marmot-edit1.jpg",
-        "content":`${time}，${areaName}地區的空氣品質狀況如下`,
+        "username":"AQI 機器人",
+        "avatar_url":"",
+        "content":"即時空氣品質監測數值通知:grinning::grinning::grinning:",
         "embeds":[embedContent]
     }
     let response = await fetch(webhookEndPoint,{method:"POST", headers:head, body:JSON.stringify(body)})
@@ -85,14 +117,14 @@ const sendMessage = async () =>{
 const createEmbededMessage = () => {
     const message = {
         "author": {
-            "name": "AQI Marmot",
+            "name": "AQI 土撥鼠特派員",
             "url": "https://airtw.moenv.gov.tw/",
             "icon_url": "https://media.tenor.com/DnQjJgzO2W4AAAAd/ahhh-scream.gif"
         },
-        "title": "空氣品質檢測結果",
+        "title": `${areaName}地區 >> 空氣品質檢測結果`,
         "url": "https://airtw.moenv.gov.tw/",
-        "description": "即時空氣品質監測數值通知 :grinning: :grinning: :grinning:",
-        "color": 1488080,
+        "description": `偵測時間: ${time}`,
+        "color": statusColor,
         "fields": [
             {
                 "name": "空氣品質AQI",
@@ -129,8 +161,12 @@ const createEmbededMessage = () => {
                 "inline": true
             },
             {
-                "name": "Thanks!",
-                "value": "祝你有個愉快的一天 :wink:"
+                "name": "🙂給一般民眾的活動建議",
+                "value": regularAdvice[aqiState]
+            },
+            {
+                "name": "😐給敏感性族群的活動建議",
+                "value": sensitiveAdvice[aqiState]
             }
         ],
         "thumbnail": {
@@ -140,7 +176,7 @@ const createEmbededMessage = () => {
             "url": statusAirImgUrl
         },
         "footer": {
-            "text": "Have a nice day and well prepared for the air quality outside!",
+            "text": "Thanks! 祝你有個愉快的一天",
             "icon_url": "https://i.pinimg.com/originals/d7/ce/7d/d7ce7de4a7157c0262cb65dd1efc47d1.png"
         }
     }

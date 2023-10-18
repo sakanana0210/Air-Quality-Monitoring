@@ -157,7 +157,7 @@ body{
                 justify-content: space-between;
                 align-items: center;
                 width: 100%;
-                height:fit-content;
+                height: auto;
                 padding: 20px 0px;
                 margin-bottom: 10px;
                 @media only screen and (max-width:600px) {
@@ -171,6 +171,11 @@ body{
                     @media only screen and (max-width:1200px) {
                         flex-wrap: wrap;
                         gap:10px;
+                        padding-right: 10px;
+                    };
+                    @media only screen and (max-width:600px) {
+                        width:100%;
+                        padding: 0;
                     };
                     .dropdown__select-container{
                         display: flex;
@@ -178,6 +183,11 @@ body{
                         width:25%;
                         @media only screen and (max-width:1200px) {
                             width:45%;
+                            flex: auto;
+                        };
+                        @media only screen and (max-width:600px) {
+                            width:50%;
+                            flex: auto;
                         };
                         .dropdown__label{
                             font-size: 14px;
@@ -186,10 +196,14 @@ body{
                         .dropdown__select{
                             height:40px;
                             width:240px;
+                            border-radius: 0px; 
+                            &:focus{
+                                outline: none;
+                            }
                             @media only screen and (max-width:1200px) {
                                 width:auto;
                             };
-                            border-radius: 0px; 
+                            
                         };
                     }
                 };
@@ -202,7 +216,15 @@ body{
                     border-radius: 10px;
                     padding: 10px 20px;
                     align-self: self-end;
-                    transition: all 200ms ease-out;
+                    transition: background-color 200ms ease-out;
+                    @media only screen and (max-width:1200px) {
+                        margin-top: 30px;
+                        align-self: self-start;
+                    };
+                    @media only screen and (max-width:600px) {
+                        width: 100%;
+                        margin: 0;
+                    };
                     &:hover{
                         cursor: pointer;
                         background-color: $primary-color-50;
@@ -246,7 +268,7 @@ body{
                         border: none;
                         color: white;
                         border-radius: 10px;
-                        transition: all 200ms ease-out;
+                        transition: background-color 200ms ease-out;
                         &:hover{
                             cursor: pointer;
                             background-color: $primary-color-50;
@@ -298,6 +320,12 @@ body{
                         width:calc((100% - 40px) /3);
                         padding:20px;
                         border: 1px solid $divider-color;
+                        @media only screen and (max-width:1200px) {
+                            width:calc(50% - 10px);
+                        };
+                        @media only screen and (max-width:600px) {
+                            width: 100%;
+                        };
                         .index__title{
                             font-size: 20px;
                         };
@@ -315,6 +343,9 @@ body{
                             font-size: 36px;
                             right:20px;
                             top:20px;
+                            @media only screen and (max-width:800px) {
+                                font-size: 30px;
+                            };
                         };
                     };
                 };
@@ -325,12 +356,18 @@ body{
                     .index__table{
                         display: flex;
                         gap:10px;
-                        
+                        @media only screen and (max-width:800px) {
+                            flex-wrap: wrap;
+                            
+                        };
                         .index__box{
                             width: calc(100% / 6);
                             background-color: $light-green;
                             border-top: 10px solid $green;
                             padding: 10px;
+                            @media only screen and (max-width:800px) {
+                                width:calc((100% - 20px) / 3);
+                            };
                             &:nth-child(2){
                                 background-color: $light-yellow;
                                 border-top: 10px solid $yellow;
@@ -387,7 +424,7 @@ body{
                             border: none;
                             padding: 10px 15px;
                             border-radius: 10px;
-                            transition: all 200ms ease-out;
+                            transition: background-color 200ms ease-out;
                             &:hover{
                                 cursor: pointer;
                                 background-color: $primary-color-50;
@@ -490,7 +527,7 @@ body{
                             color: $primary-color-70;
                             border: 1px solid $primary-color-70;
                             border-radius: 10px;
-                            transition: all 200ms ease-out;
+                            transition: background-color 200ms ease-out;
                             &:hover{
                                 cursor: pointer;
                                 background-color: $primary-color-70;

@@ -150,8 +150,7 @@ body main .data-section .data__search {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: -moz-fit-content;
-  height: fit-content;
+  height: auto;
   padding: 20px 0px;
   margin-bottom: 10px;
 }
@@ -170,6 +169,13 @@ body main .data-section .data__search .dropdown__container {
   body main .data-section .data__search .dropdown__container {
     flex-wrap: wrap;
     gap: 10px;
+    padding-right: 10px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  body main .data-section .data__search .dropdown__container {
+    width: 100%;
+    padding: 0;
   }
 }
 body main .data-section .data__search .dropdown__container .dropdown__select-container {
@@ -180,6 +186,13 @@ body main .data-section .data__search .dropdown__container .dropdown__select-con
 @media only screen and (max-width: 1200px) {
   body main .data-section .data__search .dropdown__container .dropdown__select-container {
     width: 45%;
+    flex: auto;
+  }
+}
+@media only screen and (max-width: 600px) {
+  body main .data-section .data__search .dropdown__container .dropdown__select-container {
+    width: 50%;
+    flex: auto;
   }
 }
 body main .data-section .data__search .dropdown__container .dropdown__select-container .dropdown__label {
@@ -190,6 +203,9 @@ body main .data-section .data__search .dropdown__container .dropdown__select-con
   height: 40px;
   width: 240px;
   border-radius: 0px;
+}
+body main .data-section .data__search .dropdown__container .dropdown__select-container .dropdown__select:focus {
+  outline: none;
 }
 @media only screen and (max-width: 1200px) {
   body main .data-section .data__search .dropdown__container .dropdown__select-container .dropdown__select {
@@ -205,7 +221,19 @@ body main .data-section .data__search .data__search-button {
   border-radius: 10px;
   padding: 10px 20px;
   align-self: self-end;
-  transition: all 200ms ease-out;
+  transition: background-color 200ms ease-out;
+}
+@media only screen and (max-width: 1200px) {
+  body main .data-section .data__search .data__search-button {
+    margin-top: 30px;
+    align-self: self-start;
+  }
+}
+@media only screen and (max-width: 600px) {
+  body main .data-section .data__search .data__search-button {
+    width: 100%;
+    margin: 0;
+  }
 }
 body main .data-section .data__search .data__search-button:hover {
   cursor: pointer;
@@ -251,7 +279,7 @@ body main .data-section .data__site .site__header .site__discord-button {
   border: none;
   color: white;
   border-radius: 10px;
-  transition: all 200ms ease-out;
+  transition: background-color 200ms ease-out;
 }
 body main .data-section .data__site .site__header .site__discord-button:hover {
   cursor: pointer;
@@ -303,6 +331,16 @@ body main .data-section .data__site .site__data-container .site__index-container
   padding: 20px;
   border: 1px solid rgba(128, 128, 128, 0.4);
 }
+@media only screen and (max-width: 1200px) {
+  body main .data-section .data__site .site__data-container .site__index-container {
+    width: calc(50% - 10px);
+  }
+}
+@media only screen and (max-width: 600px) {
+  body main .data-section .data__site .site__data-container .site__index-container {
+    width: 100%;
+  }
+}
 body main .data-section .data__site .site__data-container .site__index-container .index__title {
   font-size: 20px;
 }
@@ -321,6 +359,11 @@ body main .data-section .data__site .site__data-container .site__index-container
   right: 20px;
   top: 20px;
 }
+@media only screen and (max-width: 800px) {
+  body main .data-section .data__site .site__data-container .site__index-container .index__result {
+    font-size: 30px;
+  }
+}
 body main .data-section .data__site .data__index .index__title {
   margin-bottom: 10px;
 }
@@ -328,11 +371,21 @@ body main .data-section .data__site .data__index .index__table {
   display: flex;
   gap: 10px;
 }
+@media only screen and (max-width: 800px) {
+  body main .data-section .data__site .data__index .index__table {
+    flex-wrap: wrap;
+  }
+}
 body main .data-section .data__site .data__index .index__table .index__box {
   width: 16.6666666667%;
   background-color: #E5F4EF;
   border-top: 10px solid #009865;
   padding: 10px;
+}
+@media only screen and (max-width: 800px) {
+  body main .data-section .data__site .data__index .index__table .index__box {
+    width: calc((100% - 20px) / 3);
+  }
 }
 body main .data-section .data__site .data__index .index__table .index__box:nth-child(2) {
   background-color: #FFFFEA;
@@ -385,7 +438,7 @@ body main .data-section .data__aqc-graph .aqc__render .aqc__subTitle .aqc__butto
   border: none;
   padding: 10px 15px;
   border-radius: 10px;
-  transition: all 200ms ease-out;
+  transition: background-color 200ms ease-out;
 }
 body main .data-section .data__aqc-graph .aqc__render .aqc__subTitle .aqc__button:hover {
   cursor: pointer;
@@ -475,7 +528,7 @@ body main .data-section .data__aqc-graph .aqc__controller .aqc__options .options
   color: #16B4D0;
   border: 1px solid #16B4D0;
   border-radius: 10px;
-  transition: all 200ms ease-out;
+  transition: background-color 200ms ease-out;
 }
 body main .data-section .data__aqc-graph .aqc__controller .aqc__options .options__button:hover {
   cursor: pointer;
