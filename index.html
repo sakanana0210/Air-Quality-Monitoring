@@ -30,6 +30,16 @@
                 <p id="aqc_graph_link">空氣品質濃度圖</p>
                 <p id="trend_link">濃度趨勢圖</p>
             </div>
+            <div class="header__sidemenu">
+                <i class="fa-solid fa-bars fa-xl header__menu" id="header_menu" style="color: #16b4d0;"></i>
+                <div class="header__sidenav" id="header_sidenav">
+                    <i class="fa-solid fa-xmark fa-xl header__close" id="sidenav_close" style="color: #16b4d0;"></i>
+                    <p id="map_side_link">空氣品質地圖</p>
+                    <p id="site_side_link">監測站監測數值</p>
+                    <p id="aqc_graph_side_link">空氣品質濃度圖</p>
+                    <p id="trend_side_link">濃度趨勢圖</p>
+                </div>
+            </div>
         </div>
     </header>
     <main>
@@ -73,7 +83,7 @@
                     <button class="site__discord-button" id="discord_button">發送最新空氣品質通知  <i class="fa-brands fa-discord" style="color: #ffffff;"></i></button>
                 </div>
                 <p class="site__title">監測數值</p>
-                <p class="site__subTitle">發布時間：<span id="site_time">2023/10/16 19:00</span></p>
+                <p class="site__subTitle">發布時間：<span id="site_time"></span></p>
                 <div class="site__index-aqi-container" id="aqi_box">
                     <p class="index__title">空氣品質指標AQI</p>
                     <p class="index__description">指標污染物 : <span id="pollutant"></span></p>
