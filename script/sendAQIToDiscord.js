@@ -7,14 +7,7 @@ let areaName = ""
 const apiKey = "1fc8a126-ee45-4101-a168-12f15eecfb95"
 const dataLimit = 85
 
-let aqi
-let aqiStatus
-let pm2dot5_avg
-let pm10_avg
-let o3_8hr
-let co_8hr
-let so2
-let no2
+let aqi, aqiStatus, pm2dot5_avg, pm10_avg, o3_8hr, co_8hr, so2, no2
 let statusAirImgUrl
 let greenAirImgUrl = "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2070"
 let yellowAirImgUrl = "https://images.unsplash.com/photo-1529552650426-8e2c6ca5824c?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=1932"
@@ -24,6 +17,7 @@ let purpleAirImgUrl = "https://plus.unsplash.com/premium_photo-1664298311043-46b
 let brownAirImgUrl = "https://images.unsplash.com/photo-1470217957101-da7150b9b681?auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGNpdHklMjB3aXRoJTIwYWlyJTIwcG9sbHV0ZXxlbnwwfHwwfHx8MA%3D%3D&w=500"
 
 const discordBtn = document.getElementById("discord_button")
+
 discordBtn.addEventListener("click",()=>{
     siteName = document.getElementById("site_name").innerText
     let message = `確定發送"${siteName}偵測站"當前監測數值至Discord嗎?`
@@ -87,8 +81,6 @@ const sendMessage = async () =>{
     }
     let response = await fetch(webhookEndPoint,{method:"POST", headers:head, body:JSON.stringify(body)})
 }
-
-
 
 const createEmbededMessage = () => {
     const message = {
