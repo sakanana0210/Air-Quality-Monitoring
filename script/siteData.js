@@ -49,6 +49,8 @@ function searchData() {
             let records = data.records
             let siteSelectElem = document.getElementById("site_select");
             let timeSelectElem = document.getElementById("time_select");
+            let siteName = document.getElementById("site_name");
+            let siteTime = document.getElementById("site_time");
             let aqi = document.getElementById("result_aqi");
             let aqiDescription = document.getElementById("aqi_description");
             let pm2dot5 = document.getElementById("result_pm2dot5");
@@ -69,6 +71,8 @@ function searchData() {
     
             for (let i = 0; i < records.length; i++) {
                 if (records[i].sitename === selectedSiteValue && records[i].datacreationdate === selectedTimeValue) {
+                    siteName.textContent = selectedSiteValue;
+                    siteTime.textContent = selectedTimeValue;
                     aqi.textContent = `${records[i]["aqi"]}`;
                     aqiDescription.textContent = `${records[i].status}`;
                     pm2dot5.textContent = `${records[i]["pm2.5_avg"]}`;
@@ -193,27 +197,27 @@ function backgroundColorPm10(pm10){
 
 function backgroundColorO3(o3){
     let container = document.getElementById("O3_box");
-    if (o3 >= 0.000 && o3 <= 0.0054) {
+    if (o3 >= 0 && o3 <= 54) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
-    } else if (o3 >= 0.055 && o3 <= 0.070) {
+    } else if (o3 >= 55 && o3 <= 70) {
         container.style.backgroundColor = "#FFFFEA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FFFB26";
-    } else if (o3 >= 0.071 && o3 <= 0.085) {
+    } else if (o3 >= 71 && o3 <= 85) {
         container.style.backgroundColor = "#FEF4EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FF9734";
-    } else if (o3 >= 0.086 && o3 <= 0.105) {
+    } else if (o3 >= 86 && o3 <= 105) {
         container.style.backgroundColor = "#FAE5EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #CA0034";
-    } else if (o3 >= 0.106 && o3 <= 0.2) {
+    } else if (o3 >= 106 && o3 <= 200) {
         container.style.backgroundColor = "#F0E5F5";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #670099";
-    } else if (o3 >= 0.2) {
+    } else if (o3 >= 200) {
         container.style.backgroundColor = "#F1E5E9";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #7E0123";
