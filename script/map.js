@@ -170,7 +170,17 @@ document.addEventListener('markerClicked', function(event) {
     siteSelectionElement.dispatchEvent(changeEvent);
 });
 
-// 將mapDatas[0]["time"]改掉可取得其他時間的地圖標記
-fetchForMap().then(mapDatas => {
-    createCircle(mapDatas, mapDatas[0]["time"]);
-})
+// 將settingTime改掉可取得其他時間的地圖標記
+window.onload = firstGetMap();
+
+function firstGetMap(){
+    fetchForMap().then(mapDatas => {
+        createCircle(mapDatas, mapDatas[0]["time"]);
+    })
+}
+
+export function getNewMap(settingTime){
+    fetchForMap().then(mapDatas => {
+        createCircle(mapDatas, settingTime);
+    })
+}
