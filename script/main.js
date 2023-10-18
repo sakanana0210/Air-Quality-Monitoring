@@ -10,12 +10,10 @@
 const mapLink = document.getElementById("map_link")
 const siteLink = document.getElementById("site_link")
 const aqcGraphLink = document.getElementById("aqc_graph_link")
-const trendLink = document.getElementById("trend_link")
 const headerTitle = document.getElementById("header_title")
 const mapSideLink = document.getElementById("map_side_link")
 const siteSideLink = document.getElementById("site_side_link")
 const aqcGraphSideLink = document.getElementById("aqc_graph_side_link")
-const trendSideLink = document.getElementById("trend_side_link")
 
 const scrollToTarget = (targetIdName) => {
     const target = document.getElementById(targetIdName)
@@ -60,10 +58,6 @@ aqcGraphLink.addEventListener("click",()=>{
     scrollToTarget("third_divider")
 })
 
-trendLink.addEventListener("click",()=>{
-    scrollToTarget("forth_divider")
-})
-
 headerTitle.addEventListener("click",()=>{
     window.scrollTo({
         top: 0,
@@ -83,6 +77,3 @@ aqcGraphSideLink.addEventListener("click",()=>{
     scrollToTarget("third_divider")
 })
 
-trendSideLink.addEventListener("click",()=>{
-    scrollToTarget("forth_divider")
-})
