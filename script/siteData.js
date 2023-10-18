@@ -23,8 +23,8 @@ function initailData() {
             document.getElementById("result_pm10_concentration").textContent = initailData["pm10"];
             document.getElementById("result_ozone_concentration").textContent = initailData["o3"];
             document.getElementById("result_CO_concentration").textContent = initailData["co"];
-            document.getElementById("result_wind_speed").textContent = initailData["windspeed"];
-            document.getElementById("result_wind_direct").textContent = initailData["winddirec"];
+            document.getElementById("result_wind_speed").textContent = initailData["wind_speed"];
+            document.getElementById("result_wind_direct").textContent = initailData["wind_direc"];
             backgroundColorAqi(initailData["aqi"]);
             backgroundColorPm2dot5(initailData["pm2.5_avg"]);
             backgroundColorPm10(initailData["pm10_avg"]);
