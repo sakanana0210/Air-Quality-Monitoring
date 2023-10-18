@@ -36,7 +36,7 @@ body{
         top: 0;
         background-color: white;
         border-bottom: 1px solid $divider-color;
-        z-index: 2;
+        z-index: 10;
         .header{
             display: flex;
             justify-content: space-between;

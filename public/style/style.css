@@ -16,7 +16,7 @@ body header {
   top: 0;
   background-color: white;
   border-bottom: 1px solid rgba(128, 128, 128, 0.4);
-  z-index: 2;
+  z-index: 10;
 }
 body header .header {
   display: flex;
