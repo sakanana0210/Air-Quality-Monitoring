@@ -45,7 +45,6 @@ function fetchForMap() {
         })
         .then(data => {
             let groupedData = [];
-
             data["records"].forEach(record => {
                 let time = record["datacreationdate"];
                 let sitename = record["sitename"];
@@ -135,8 +134,21 @@ function createCircle(data, time) {
 
 // Click map select change
 document.addEventListener('markerClicked', function(event) {
+    let areaMap = [
+        { "北部空品區":[ { "基隆市":[] }, { "臺北市":[] }, { "新北市":[] }, { "桃園市":[] } ] },
+        { "竹苗空品區":[ {"新竹市":[]}, {"新竹縣":[]}, {"苗栗縣":[]} ] },
+        { "中部空品區":[ {"臺中市":[]}, {"南投縣":[]}, {"彰化縣":[]} ] },
+        { "雲嘉南空品區":[ {"雲林縣":[]}, {"嘉義市":[]}, {"嘉義縣":[]}, {"臺南市":[]} ] },
+        { "高屏空品區":[ {"高雄市":[]}, {"屏東縣":[]} ] },
+        { "宜蘭空品區":[ {"宜蘭縣":[]} ] },
+        { "花東空品區":[ {"花蓮縣":[]}, {"臺東縣":[]} ] },
+        { "其他":[ {"澎湖縣":[]}, {"金門縣":[]}, {"連江縣":[]} ] }
+    ];
     let markerCity = event.detail.county;
     let markerName = event.detail.name;
+    const areaSelectionElement = document.getElementById("area_select");
+    const citySelectionElement = document.getElementById("city_select");
+    const siteSelectionElement = document.getElementById("site_select");
     let district = '';
     for (let i = 0; i < areaMap.length; i++) {
         let areaObject = areaMap[i];
@@ -149,7 +161,6 @@ document.addEventListener('markerClicked', function(event) {
             break;
         }
     }
-    console.log(district, markerCity, markerName,);
     areaSelectionElement.value = district;
     let changeEvent = new Event('change');
     areaSelectionElement.dispatchEvent(changeEvent);
