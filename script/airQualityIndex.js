@@ -3,6 +3,7 @@ let AQIModule = (function() {
     let is42ndColor = false;
     let indexItem = "PM25";
     const currentDate = new Date();
+    checkDate(currentDate);
     const year = currentDate.getFullYear().toString();
     const month = (currentDate.getMonth() + 1).toString();// 月份从0开始，所以要加1
     const day = currentDate.getDate().toString();
@@ -56,6 +57,25 @@ let AQIModule = (function() {
     }
 
     // Utility
+    function checkDate(currentDate){
+        if(currentDate.getMinutes() > 10) return;
+        currentDate.setHours(currentDate.getHours() - 1);
+
+        if (currentDate.getHours() < 0) {
+            currentDate.setDate(currentDate.getDate() - 1);
+            if (currentDate.getDate() === 0) {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                if (currentDate.getMonth() === -1) {
+                    currentDate.setFullYear(currentDate.getFullYear() - 1);
+                    currentDate.setMonth(11);
+                }
+    
+                currentDate.setDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate());
+            }
+            currentDate.setHours(23);
+        }
+    }
+
     function addModelSimulateImage(is42ndColor, date, time, index){
         // TODO:
         // island
