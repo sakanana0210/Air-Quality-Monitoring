@@ -77,3 +77,4 @@ aqcGraphSideLink.addEventListener("click",()=>{
     scrollToTarget("third_divider")
 })
 
+export {scrollToTarget}
