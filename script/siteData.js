@@ -11,7 +11,7 @@ function initailData() {
             document.getElementById("site_name").textContent = initailData["sitename"];
             document.getElementById("site_time").textContent = initailData["publishtime"];
             document.getElementById("result_aqi").textContent = initailData["aqi"];
-            document.getElementById("pollutant").textContent = initailData["pollutant"];
+            document.getElementById("pollutant").textContent = initailData["pollutant"] === "" ? "無" : initailData["pollutant"];
             document.getElementById("aqi_description").textContent = initailData["status"];
             document.getElementById("result_pm2dot5").textContent = initailData["pm2.5_avg"];
             document.getElementById("result_pm10").textContent = initailData["pm10_avg"];
@@ -75,7 +75,7 @@ function searchData() {
                     siteName.textContent = selectedSiteValue;
                     siteTime.textContent = selectedTimeValue;
                     aqi.textContent = records[i]["aqi"] === "" ? "？" : `${records[i]["aqi"]}`;
-                    pollutant.textContent = records[i]["pollutant"] === "" ? "？" : `${records[i]["pollutant"]}`;
+                    pollutant.textContent = records[i]["pollutant"] === "" ? "無" : `${records[i]["pollutant"]}`;
                     aqiDescription.textContent = `${records[i].status}`;
                     pm2dot5.textContent = records[i]["pm2.5_avg"] === "" ? "？" : `${records[i]["pm2.5_avg"]}`;
                     pm10.textContent = records[i]["pm10_avg"] === "" ? "？" : `${records[i]["pm10_avg"]}`;
@@ -106,27 +106,27 @@ function searchData() {
 
 function backgroundColorAqi(aqi){
     let container = document.getElementById("aqi_box");
-    if (aqi >= 0 && aqi <= 50) {
+    if (aqi >= 0 && aqi < 51) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
-    } else if (aqi >= 51 && aqi <= 100) {
+    } else if (aqi >= 51 && aqi < 101) {
         container.style.backgroundColor = "#FFFFEA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FFFB26";
-    } else if (aqi >= 101 && aqi <= 150) {
+    } else if (aqi >= 101 && aqi < 151) {
         container.style.backgroundColor = "#FEF4EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FF9734";
-    } else if (aqi >= 151 && aqi <= 200) {
+    } else if (aqi >= 151 && aqi < 201) {
         container.style.backgroundColor = "#FAE5EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #CA0034";
-    } else if (aqi >= 201 && aqi <= 300) {
+    } else if (aqi >= 201 && aqi < 301) {
         container.style.backgroundColor = "#F0E5F5";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #670099";
-    } else if (aqi >= 301 && aqi <= 500) {
+    } else if (aqi >= 301 && aqi < 500) {
         container.style.backgroundColor = "#F1E5E9";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #7E0123";
@@ -138,27 +138,27 @@ function backgroundColorAqi(aqi){
 
 function backgroundColorPm2dot5(pm2dot5){
     let container = document.getElementById("pm2dot5_box");
-    if (pm2dot5 >= 0 && pm2dot5 <= 15.4) {
+    if (pm2dot5 >= 0 && pm2dot5 < 15.5) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
-    } else if (pm2dot5 >= 1.55 && pm2dot5 <= 35.4) {
+    } else if (pm2dot5 >= 1.55 && pm2dot5 < 35.5) {
         container.style.backgroundColor = "#FFFFEA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FFFB26";
-    } else if (pm2dot5 >= 35.5 && pm2dot5 <= 54.4) {
+    } else if (pm2dot5 >= 35.5 && pm2dot5 < 54.5) {
         container.style.backgroundColor = "#FEF4EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FF9734";
-    } else if (pm2dot5 >= 54.5 && pm2dot5 <= 150.4) {
+    } else if (pm2dot5 >= 54.5 && pm2dot5 < 150.5) {
         container.style.backgroundColor = "#FAE5EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #CA0034";
-    } else if (pm2dot5 >= 150.5 && pm2dot5 <= 250.4) {
+    } else if (pm2dot5 >= 150.5 && pm2dot5 < 250.5) {
         container.style.backgroundColor = "#F0E5F5";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #670099";
-    } else if (pm2dot5 >= 250.5 && pm2dot5 <= 350.4) {
+    } else if (pm2dot5 >= 250.5 && pm2dot5 < 350.4) {
         container.style.backgroundColor = "#F1E5E9";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #7E0123";
@@ -170,27 +170,27 @@ function backgroundColorPm2dot5(pm2dot5){
 
 function backgroundColorPm10(pm10){
     let container = document.getElementById("pm10_box");
-    if (pm10 >= 0.0001 && pm10 <= 54) {
+    if (pm10 >= 0.0001 && pm10 < 55) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
-    } else if (pm10 >= 55 && pm10 <= 125) {
+    } else if (pm10 >= 55 && pm10 < 126) {
         container.style.backgroundColor = "#FFFFEA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FFFB26";
-    } else if (pm10 >= 126 && pm10 <= 254) {
+    } else if (pm10 >= 126 && pm10 < 255) {
         container.style.backgroundColor = "#FEF4EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FF9734";
-    } else if (pm10 >= 255 && pm10 <= 354) {
+    } else if (pm10 >= 255 && pm10 < 355) {
         container.style.backgroundColor = "#FAE5EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #CA0034";
-    } else if (pm10 >= 355 && pm10 <= 424) {
+    } else if (pm10 >= 355 && pm10 < 425) {
         container.style.backgroundColor = "#F0E5F5";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #670099";
-    } else if (pm10 >= 425 && pm10 <= 504) {
+    } else if (pm10 >= 425 && pm10 < 504) {
         container.style.backgroundColor = "#F1E5E9";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #7E0123";
@@ -202,23 +202,23 @@ function backgroundColorPm10(pm10){
 
 function backgroundColorO3(o3){
     let container = document.getElementById("O3_box");
-    if (o3 >= 0.0001 && o3 <= 54) {
+    if (o3 >= 0.0001 && o3 < 55) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
-    } else if (o3 >= 55 && o3 <= 70) {
+    } else if (o3 >= 55 && o3 < 71) {
         container.style.backgroundColor = "#FFFFEA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FFFB26";
-    } else if (o3 >= 71 && o3 <= 85) {
+    } else if (o3 >= 71 && o3 < 86) {
         container.style.backgroundColor = "#FEF4EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FF9734";
-    } else if (o3 >= 86 && o3 <= 105) {
+    } else if (o3 >= 86 && o3 < 106) {
         container.style.backgroundColor = "#FAE5EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #CA0034";
-    } else if (o3 >= 106 && o3 <= 200) {
+    } else if (o3 >= 106 && o3 < 200) {
         container.style.backgroundColor = "#F0E5F5";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #670099";
@@ -234,27 +234,27 @@ function backgroundColorO3(o3){
 
 function backgroundColorCO(co){
     let container = document.getElementById("CO_box");
-    if (co >= 0.0001 && co <= 4.4) {
+    if (co >= 0.0001 && co < 4.5) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
-    } else if (co >= 4.5 && co <= 9.4) {
+    } else if (co >= 4.5 && co < 9.5) {
         container.style.backgroundColor = "#FFFFEA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FFFB26";
-    } else if (co >= 9.5 && co <= 12.4) {
+    } else if (co >= 9.5 && co < 12.5) {
         container.style.backgroundColor = "#FEF4EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FF9734";
-    } else if (co >= 12.5 && co <= 15.4) {
+    } else if (co >= 12.5 && co < 15.5) {
         container.style.backgroundColor = "#FAE5EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #CA0034";
-    } else if (co >= 15.5 && co <= 30.4) {
+    } else if (co >= 15.5 && co < 30.5) {
         container.style.backgroundColor = "#F0E5F5";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #670099";
-    } else if (co >= 30.5 && co <= 40.4) {
+    } else if (co >= 30.5 && co < 40.4) {
         container.style.backgroundColor = "#F1E5E9";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #7E0123";
@@ -266,27 +266,27 @@ function backgroundColorCO(co){
 
 function backgroundColorSO2(so2){
     let container = document.getElementById("SO_box");
-    if (so2 >= 0.0001 && so2 <= 35) {
+    if (so2 >= 0.0001 && so2 < 36) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
-    } else if (so2 >= 36 && so2 <= 75) {
+    } else if (so2 >= 36 && so2 < 76) {
         container.style.backgroundColor = "#FFFFEA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FFFB26";
-    } else if (so2 >= 76 && so2 <= 185) {
+    } else if (so2 >= 76 && so2 < 186) {
         container.style.backgroundColor = "#FEF4EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FF9734";
-    } else if (so2 >= 186 && so2 <= 304) {
+    } else if (so2 >= 186 && so2 < 305) {
         container.style.backgroundColor = "#FAE5EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #CA0034";
-    } else if (so2 >= 305 && so2 <= 604) {
+    } else if (so2 >= 305 && so2 < 605) {
         container.style.backgroundColor = "#F0E5F5";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #670099";
-    } else if (so2 >= 605 && so2 <= 804) {
+    } else if (so2 >= 605 && so2 < 804) {
         container.style.backgroundColor = "#F1E5E9";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #7E0123";
@@ -298,27 +298,27 @@ function backgroundColorSO2(so2){
 
 function backgroundColorNO2(no2){
     let container = document.getElementById("NO2_box");
-    if (no2 >= 0.0001 && no2 <= 53) {
+    if (no2 >= 0.0001 && no2 < 54) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
-    } else if (no2 >= 54 && no2 <= 100) {
+    } else if (no2 >= 54 && no2 < 101) {
         container.style.backgroundColor = "#FFFFEA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FFFB26";
-    } else if (no2 >= 101 && no2 <= 360) {
+    } else if (no2 >= 101 && no2 < 361) {
         container.style.backgroundColor = "#FEF4EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #FF9734";
-    } else if (no2 >= 361 && no2 <= 649) {
+    } else if (no2 >= 361 && no2 < 650) {
         container.style.backgroundColor = "#FAE5EA";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #CA0034";
-    } else if (no2 >= 650 && no2 <= 1249) {
+    } else if (no2 >= 650 && no2 < 1250) {
         container.style.backgroundColor = "#F0E5F5";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #670099";
-    } else if (no2 >= 1250 && no2 <= 1649) {
+    } else if (no2 >= 1250 && no2 < 1649) {
         container.style.backgroundColor = "#F1E5E9";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #7E0123";
