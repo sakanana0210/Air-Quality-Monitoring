@@ -56,12 +56,21 @@ body{
                 align-items: center;
                 gap: 20px;
                 font-size: 24px;
+                @media only screen and (max-width:600px) {
+                    img{
+                        width:60px;
+                        height:60px;
+                        object-fit: cover;
+                        object-position:left top; 
+                    }
+                }
                 .header__title{
                     text-decoration: none;
                     color: black;
                     &:hover{
                         cursor: pointer;
                     };
+                    
                 };
             };
             .header__navbar{
@@ -101,6 +110,9 @@ body{
                     height:100vh;
                     padding: 20px;
                     gap:20px;
+                    @media only screen and (max-width:600px) {
+                        width: 250px;
+                    }
                     .header__close{
                         position: absolute;
                         top:40px;
@@ -238,6 +250,7 @@ body{
                 z-index: 1;
             };
             .data__site{
+                position: relative;
                 width: 100%;
                 .site__header{
                     position: relative;
@@ -250,30 +263,36 @@ body{
                         object-position:left top; 
                     };
                     .site__name{
-                        margin-left: 100px;
+                        margin-left: 80px;
                         font-size: 28px;
                     };
                     .site__department{
-                        margin-left: 100px;
+                        margin-left: 80px;
                         font-size: 18px;
                     };
-                    .site__discord-button{
-                        position: absolute;
-                        right:0;
-                        top:20px;
+                    
+                };
+                .site__discord-button{
+                    position: absolute;
+                    right:0;
+                    top:20px;
 
-                        height:40px;
-                        width:200px;
-                        background-color: $primary-color-70;
-                        border: none;
-                        color: white;
-                        border-radius: 10px;
-                        transition: background-color 200ms ease-out;
-                        &:hover{
-                            cursor: pointer;
-                            background-color: $primary-color-50;
-                        }
+                    height:40px;
+                    width:200px;
+                    background-color: $primary-color-70;
+                    border: none;
+                    color: white;
+                    border-radius: 10px;
+                    transition: background-color 200ms ease-out;
+                    &:hover{
+                        cursor: pointer;
+                        background-color: $primary-color-50;
                     };
+                    @media only screen and (max-width:600px) {
+                        width:180px;
+                        position: unset;
+                        margin-top: 20px;
+                    }
                 };
                 .site__title{
                     padding-top: 20px;
@@ -286,9 +305,17 @@ body{
                     position: relative;
                     height: 100px;
                     width: 70%;
+                    min-width: 450px;
                     padding: 20px;
                     margin-bottom: 30px;
                     border: 1px solid $divider-color;
+                    @media only screen and (max-width:600px) {
+                        width:80%;
+                        min-width: 320px;
+                        height:140px;
+                        display: flex;
+                        flex-direction: column;
+                    }
                     .index__title{
                         font-size: 20px;
                     };
@@ -300,13 +327,22 @@ body{
                         font-size: 20px;
                         right: 80px;
                         top:35px;
+                        @media only screen and (max-width:600px) {
+                            position: unset;
+                            margin-top: 20px;
+                        }
                     };
                     .index__result{
                         position: absolute;
                         font-size: 36px;
                         right:20px;
                         top:20px;
+                        @media only screen and (max-width:600px) {
+                            bottom: 10px;
+                            top: unset;
+                        }
                     };
+                    
                 };
                 .site__data-container{
                     display: flex;
@@ -405,7 +441,9 @@ body{
                 };
             };
             .data__aqc-graph{
-                height:90vh;
+                min-height:80vh;
+                height: fit-content;
+                width: 100%;
                 .aqc__title{
                     margin-bottom: 10px;
                 };
@@ -416,7 +454,9 @@ body{
                     align-items: center;
                     width:100%;
                     height:600px;
-
+                    @media only screen and (max-width:600px) {
+                        height:480px;
+                    };
                     .aqc__subTitle{
                         .aqc__button{
                             margin-left: 20px;
@@ -436,6 +476,10 @@ body{
                         position: absolute;
                         top:60px;
                         left:calc(50% - 240px);
+                        z-index: 2;
+                        @media only screen and (max-width:600px) {
+                            left:calc(50% - 160px);  
+                        }
                         .aqc__matzumark{
                             position: relative;
                             width:80px;
@@ -443,6 +487,11 @@ body{
                             margin-bottom: 5px;
                             border: 1px solid $divider-color;
                             border-radius: 10px;
+                            @media only screen and (max-width:600px) {
+                                width:60px;
+                                height:60px;
+                                background-size: contain;
+                            };
                             p{
                                 position: absolute;
                                 bottom: 5px;
@@ -463,13 +512,24 @@ body{
                         left:calc(50% - 120px);
                         width:260px;
                         height:490px;
+                        z-index: 1;
+                        @media only screen and (max-width:600px) {
+                            left:calc(50% - 90px);
+                            width: 200px;
+                            height: 377px;   
+                        }
                         .aqc__tw-mark{
                             position: absolute;
                             top: 0;
                             width:260px;
                             height:490px;
                             background-image: url("https://airtw.moenv.gov.tw/images/ConcentrationMap/central_TW_mask.png");
+                            background-size: contain;
                             z-index: 3;
+                            @media only screen and (max-width:600px) {
+                                width: 200px;
+                                height: 377px;   
+                            }
                         };
                         .aqc__tw-line{
                             position: absolute;
@@ -477,7 +537,12 @@ body{
                             width:260px;
                             height:490px;
                             background-image: url("https://airtw.moenv.gov.tw/images/ConcentrationMap/central_TW_line.png");
+                            background-size: contain;
                             z-index: 2;
+                            @media only screen and (max-width:600px) {
+                                width: 200px;
+                                height: 377px;  
+                            }
                         };
                         .aqc__tw-density{
                             position: absolute;
@@ -485,8 +550,13 @@ body{
                             width:260px;
                             height:490px;
                             background-image: url("https://airtw.moenv.gov.tw/ModelSimulate/20231015/output_PM25_20231015070000.png");
+                            background-size: contain;
                             background-size: cover;
                             z-index: 1;
+                            @media only screen and (max-width:600px) {
+                                width: 200px;
+                                height: 377px;   
+                            }
                         };
                     };
                     .aqc__legend{
@@ -495,6 +565,11 @@ body{
                         right:calc(50% - 280px);
                         width:130px;
                         height:290px;
+                        z-index: 2;
+                        @media only screen and (max-width:600px) {
+                            right:calc(50% - 230px);
+                            bottom: 0;
+                        };
                         .aqc__legend-name{
                             font-size: 20px
                         };
@@ -504,6 +579,9 @@ body{
                                 height: 240px;
                                 width: 5px;
                                 background: linear-gradient(to top,#096,#ffde33,#f93,#c03,#609,#7e0023,#2d020e);
+                                @media only screen and (max-width:600px) {
+                                    height:200px;
+                                };
                             };  
                             .aqc__legend-index{
                                 display: flex;
@@ -512,6 +590,7 @@ body{
                                     display: flex;
                                     flex-direction: column;
                                     flex: 1;
+                                    margin-left: 10px;
                                 }
                                 li{
                                     list-style-type: none;
@@ -527,10 +606,14 @@ body{
                     flex-direction: column;
                     align-items: center;
                     .aqc__options{
+                        display: flex;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                        width:100%;
                         .options__button{
                             height: 40px;
                             padding: 10px 20px;
-                            margin-right: 10px;
                             background-color: white;
                             color: $primary-color-70;
                             border: 1px solid $primary-color-70;
