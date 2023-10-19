@@ -1,8 +1,8 @@
 import { getNewMap } from './map.js';
+import { scrollToTarget } from './main.js';
 
 let url = "https://data.moenv.gov.tw/api/v2/aqx_p_488?api_key=e8dd42e6-9b8b-43f8-991e-b3dee723a52d&limit=1000&sort=datacreationdate%20desc&format=JSON";
 let records;
-let dataTest;
 let timeList;
 let areaMap = [
 	{ "北部空品區":[ { "基隆市":[] }, { "臺北市":[] }, { "新北市":[] }, { "桃園市":[] } ] },
@@ -26,7 +26,6 @@ const searchBtn = document.getElementById("search_button");
 async function initSetting(url) {
     let response = await fetch(url);
     let data = await response.json()
-	dataTest = data
 	records = data["records"];
 	timeList = records.filter(recordItem => {
 						return recordItem.sitename === records[0].sitename;
@@ -125,6 +124,7 @@ function setTimeList() {
 function setSearchActions() {
 	let settingTime = timeSelectionElement.value;
 	getNewMap(settingTime);
+	scrollToTarget("second_divider");
 }
 
 // Change select actions
