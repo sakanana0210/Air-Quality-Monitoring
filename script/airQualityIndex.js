@@ -217,74 +217,123 @@ let AQIModule = (function() {
     }
 
     function getColor(category, value){
-        let dValue = 99;
-        let colors = is42ndColor == false ?
-            ["#009966","#ffde33","#ff9933","#cc0033","#660099","#7e0023","#2d020e"] :
-            ["#0d7bc0","#4bbffc","#6bdcd7","#f3d62b","#f3a439","#ea6026"];
-        for(let i=0 ; i<colors.length ; i++){
-            colors[i] = hexToRgb(colors[i]);
-        }
-        if(category == "PM2.5") dValue = backgroundColorPm2dot5(value);
-        else if(category == "PM10") dValue = backgroundColorPm10(value);
-        else if(category == "O3") dValue = backgroundColorO3(value);
-        else if(category == "CO") dValue = backgroundColorCO(value);
-        else if(category == "SO2") dValue = backgroundColorSO2(value);
-        else if(category == "NO2") dValue = backgroundColorNO2(value);
+        if(category == "PM2.5") return backgroundColorPm2dot5(value);
+        else if(category == "PM10") return backgroundColorPm10(value);
+        else if(category == "O3") return backgroundColorO3(value);
+        else if(category == "CO") return backgroundColorCO(value);
+        else if(category == "SO2") return backgroundColorSO2(value);
+        else if(category == "NO2") return backgroundColorNO2(value);
         else {
             return "#969696";
         }
-        let startColor = colors[0];
-        let endColor = colors[0];
-        for(let i=0 ; i<colors.length ; i++){
-            if(i/colors.length*100 > dValue){
-                endColor = colors[i];
-                break;
-            }
-            startColor = colors[i];
-        }
-        const rgbStart = startColor.match(/\d+/g); // 从起始色中提取RGB值
-        const rgbEnd = endColor.match(/\d+/g);
-        // return "rgb(" + Pic_R[dValue] + "," + Pic_G[dValue] + "," + Pic_B[dValue] + ")";
-        return `rgb(${Math.round((dValue/100) * rgbStart[0] + (1 - dValue/100) * rgbEnd[0])}, 
-                    ${Math.round((dValue/100) * rgbStart[1] + (1 - dValue/100) * rgbEnd[1])}, 
-                    ${Math.round((dValue/100) * rgbStart[2] + (1 - dValue/100) * rgbEnd[2])})`;
     }
 
-    function hexToRgb(hex) {
-        hex = hex.replace("#", "");
-        var r = parseInt(hex.substring(0, 2), 16);
-        var g = parseInt(hex.substring(2, 4), 16);
-        var b = parseInt(hex.substring(4, 6), 16);
-        return "rgb(" + r + ", " + g + ", " + b + ")";
+    function backgroundColorPm2dot5(pm2dot5){
+        if (pm2dot5 >= 0 && pm2dot5 <= 15.4) {
+            return is42ndColor==false ? "#009865" : "#0d7bc0";
+        } else if (pm2dot5 >= 1.55 && pm2dot5 <= 35.4) {
+            return is42ndColor==false ? "#FFFB26" : "#4bbffc";
+        } else if (pm2dot5 >= 35.5 && pm2dot5 <= 54.4) {
+            return is42ndColor==false ? "#FF9734" : "#6bdcd7";
+        } else if (pm2dot5 >= 54.5 && pm2dot5 <= 150.4) {
+            return is42ndColor==false ? "#CA0034" : "#f3d62b";
+        } else if (pm2dot5 >= 150.5 && pm2dot5 <= 250.4) {
+            return is42ndColor==false ? "#670099" : "#f3a439";
+        } else if (pm2dot5 >= 250.5 && pm2dot5 <= 350.4) {
+            return is42ndColor==false ? "#7E0123" : "#ea6026";
+        } else {
+            return "#969696";
+        }
     }
     
-    function backgroundColorPm2dot5(pm2dot5){
-        return (pm2dot5/(350.4-0)*100);
-        // return Math.round(pm2dot5/100*60);
-    }
-
     function backgroundColorPm10(pm10){
-        return (pm10/(504-0)*100);
-        // return Math.round(pm10/100*60);
+        if (pm10 >= 0.0001 && pm10 <= 54) {
+            return is42ndColor==false ? "#009865" : "#0d7bc0";
+        } else if (pm10 >= 55 && pm10 <= 125) {
+            return is42ndColor==false ? "#FFFB26" : "#4bbffc";
+        } else if (pm10 >= 126 && pm10 <= 254) {
+            return is42ndColor==false ? "#FF9734" : "#6bdcd7";
+        } else if (pm10 >= 255 && pm10 <= 354) {
+            return is42ndColor==false ? "#CA0034" : "#f3d62b";
+        } else if (pm10 >= 355 && pm10 <= 424) {
+            return is42ndColor==false ? "#670099" : "#f3a439";
+        } else if (pm10 >= 425 && pm10 <= 504) {
+            return is42ndColor==false ? "#7E0123" : "#ea6026";
+        } else {
+            return "#969696";
+        }
     }
-
+    
     function backgroundColorO3(o3){
-        return (o3/(504-0)*100);
-        // return Math.round(o3/100*60);
+        if (o3 >= 0.0001 && o3 <= 54) {
+            return is42ndColor==false ? "#009865" : "#0d7bc0";
+        } else if (o3 >= 55 && o3 <= 70) {
+            return is42ndColor==false ? "#FFFB26" : "#4bbffc";
+        } else if (o3 >= 71 && o3 <= 85) {
+            return is42ndColor==false ? "#FF9734" : "#6bdcd7";
+        } else if (o3 >= 86 && o3 <= 105) {
+            return is42ndColor==false ? "#CA0034" : "#f3d62b";
+        } else if (o3 >= 106 && o3 <= 200) {
+            return is42ndColor==false ? "#670099" : "#f3a439";
+        } else if (o3 >= 200) {
+            return is42ndColor==false ? "#7E0123" : "#ea6026";
+        } else {
+            return "#969696";
+        }
     }
-
+    
     function backgroundColorCO(co){
-        return (co/(40.4-0)*100);
-        // return Math.round(co/100*60);
+        if (co >= 0.0001 && co <= 4.4) {
+            return is42ndColor==false ? "#009865" : "#0d7bc0";
+        } else if (co >= 4.5 && co <= 9.4) {
+            return is42ndColor==false ? "#FFFB26" : "#4bbffc";
+        } else if (co >= 9.5 && co <= 12.4) {
+            return is42ndColor==false ? "#FF9734" : "#6bdcd7";
+        } else if (co >= 12.5 && co <= 15.4) {
+            return is42ndColor==false ? "#CA0034" : "#f3d62b";
+        } else if (co >= 15.5 && co <= 30.4) {
+            return is42ndColor==false ? "#670099" : "#f3a439";
+        } else if (co >= 30.5 && co <= 40.4) {
+            return is42ndColor==false ? "#7E0123" : "#ea6026";
+        } else {
+            return "#969696";
+        }
     }
-
+    
     function backgroundColorSO2(so2){
-        return (so2/(804-0)*100);
-        // return Math.round(so2/100*60);
+        let container = document.getElementById("SO_box");
+        if (so2 >= 0.0001 && so2 <= 35) {
+            return is42ndColor==false ? "#009865" : "#0d7bc0";
+        } else if (so2 >= 36 && so2 <= 75) {
+            return is42ndColor==false ? "#FFFB26" : "#4bbffc";
+        } else if (so2 >= 76 && so2 <= 185) {
+            return is42ndColor==false ? "#FF9734" : "#6bdcd7";
+        } else if (so2 >= 186 && so2 <= 304) {
+            return is42ndColor==false ? "#CA0034" : "#f3d62b";
+        } else if (so2 >= 305 && so2 <= 604) {
+            return is42ndColor==false ? "#670099" : "#f3a439";
+        } else if (so2 >= 605 && so2 <= 804) {
+            return is42ndColor==false ? "#7E0123" : "#ea6026";
+        } else {
+            return "#969696";
+        }
     }
-
+    
     function backgroundColorNO2(no2){
-        return (no2/(1649-0)*100);
-        // return Math.round(no2/100*60);
+        if (no2 >= 0.0001 && no2 <= 53) {
+            return is42ndColor==false ? "#009865" : "#0d7bc0";
+        } else if (no2 >= 54 && no2 <= 100) {
+            return is42ndColor==false ? "#FFFB26" : "#4bbffc";
+        } else if (no2 >= 101 && no2 <= 360) {
+            return is42ndColor==false ? "#FF9734" : "#6bdcd7";
+        } else if (no2 >= 361 && no2 <= 649) {
+            return is42ndColor==false ? "#CA0034" : "#f3d62b";
+        } else if (no2 >= 650 && no2 <= 1249) {
+            return is42ndColor==false ? "#670099" : "#f3a439";
+        } else if (no2 >= 1250 && no2 <= 1649) {
+            return is42ndColor==false ? "#7E0123" : "#ea6026";
+        } else  {
+            return "#969696";
+        }
     }
 })();
