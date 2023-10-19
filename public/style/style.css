@@ -510,10 +510,20 @@ body main .data-section .data__aqc-graph .aqc__render .aqc__legend .aqc__legend-
 body main .data-section .data__aqc-graph .aqc__render .aqc__legend .aqc__legend-wrapper .aqc__legend-color-bar {
   height: 240px;
   width: 5px;
-  background: linear-gradient(0deg, #0d7bc0, #4bbffc, #6bdcd7, #f3d62b, #f3a439, #ea6026);
+  background: linear-gradient(to top,#096,#ffde33,#f93,#c03,#609,#7e0023,#2d020e);
+}
+body main .data-section .data__aqc-graph .aqc__render .aqc__legend .aqc__legend-wrapper .aqc__legend-index{
+  display: flex;
+  flex-direction: column;
+}
+body main .data-section .data__aqc-graph .aqc__render .aqc__legend .aqc__legend-wrapper .aqc__legend-index ul {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 body main .data-section .data__aqc-graph .aqc__render .aqc__legend .aqc__legend-wrapper .aqc__legend-index li {
   list-style-type: none;
+  flex: 1;
 }
 body main .data-section .data__aqc-graph .aqc__controller {
   display: flex;
