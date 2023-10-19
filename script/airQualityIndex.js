@@ -116,7 +116,14 @@ let AQIModule = (function() {
     function changeLegend(btn){
         // Legend title
         const legend = document.getElementById("legend_name");
-        legend.innerHTML = btn.innerHTML;
+        let content = btn.innerHTML
+        if(btn.innerText === "PM2.5" || btn.innerText === "PM10")
+            content = content + " (μg/m <sup>3</sup>)";
+        else if(btn.innerText === "CO")
+            content = content + " (ppm)";
+        else
+            content = content + " (ppb)";
+        legend.innerHTML = content;
         // Legend mark
         if(btn.id == "aqc_option_pm2dot5"){
             document.getElementById("legend_marker_1").innerText = is42ndColor == false ? 350.4 : 142;
