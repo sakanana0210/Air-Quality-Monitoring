@@ -52,6 +52,7 @@ function searchData() {
             let siteName = document.getElementById("site_name");
             let siteTime = document.getElementById("site_time");
             let aqi = document.getElementById("result_aqi");
+            let pollutant = document.getElementById("pollutant");
             let aqiDescription = document.getElementById("aqi_description");
             let pm2dot5 = document.getElementById("result_pm2dot5");
             let pm10 = document.getElementById("result_pm10");
@@ -73,20 +74,21 @@ function searchData() {
                 if (records[i].sitename === selectedSiteValue && records[i].datacreationdate === selectedTimeValue) {
                     siteName.textContent = selectedSiteValue;
                     siteTime.textContent = selectedTimeValue;
-                    aqi.textContent = `${records[i]["aqi"]}`;
+                    aqi.textContent = records[i]["aqi"] === "" ? "？" : `${records[i]["aqi"]}`;
+                    pollutant.textContent = records[i]["pollutant"] === "" ? "？" : `${records[i]["pollutant"]}`;
                     aqiDescription.textContent = `${records[i].status}`;
-                    pm2dot5.textContent = `${records[i]["pm2.5_avg"]}`;
-                    pm10.textContent = `${records[i]["pm10_avg"]}`;
-                    o3.textContent = `${records[i]["o3_8hr"]}`;
-                    co.textContent = `${records[i]["co_8hr"]}`;
-                    so2.textContent = `${records[i]["so2"]}`;
-                    no2.textContent = `${records[i]["no2"]}`;
-                    pm2dot5Concentration.textContent = `${records[i]["pm2.5"]}`;
-                    pm10Concentration.textContent = `${records[i]["pm10"]}`;
-                    ozoneConcentration.textContent = `${records[i]["o3"]}`;
-                    coConcentration.textContent = `${records[i]["co"]}`;
-                    windSpeed.textContent = `${records[i]["windspeed"]}`;
-                    windDirect.textContent = `${records[i]["winddirec"]}`;
+                    pm2dot5.textContent = records[i]["pm2.5_avg"] === "" ? "？" : `${records[i]["pm2.5_avg"]}`;
+                    pm10.textContent = records[i]["pm10_avg"] === "" ? "？" : `${records[i]["pm10_avg"]}`;
+                    o3.textContent = records[i]["o3_8hr"] === "" ? "？" : `${records[i]["o3_8hr"]}`;
+                    co.textContent = records[i]["co_8hr"] === "" ? "？" : `${records[i]["co_8hr"]}`;
+                    so2.textContent = records[i]["so2"] === "" ? "？" : `${records[i]["so2"]}`;
+                    no2.textContent = records[i]["no2"] === "" ? "？" : `${records[i]["no2"]}`;
+                    pm2dot5Concentration.textContent = records[i]["pm2.5"] === "" ? "？" : `${records[i]["pm2.5"]}`;
+                    pm10Concentration.textContent = records[i]["pm10"] === "" ? "？" : `${records[i]["pm10"]}`;
+                    ozoneConcentration.textContent =  records[i]["o3"] === "" ? "？" : `${records[i]["o3"]}`;
+                    coConcentration.textContent =  records[i]["co"] === "" ? "？" : `${records[i]["co"]}`;
+                    windSpeed.textContent =  records[i]["windspeed"] === "" ? "？" : `${records[i]["windspeed"]}`;
+                    windDirect.textContent =  records[i]["winddirec"] === "" ? "？" : `${records[i]["winddirec"]}`;
                     backgroundColorAqi(aqi.textContent);
                     backgroundColorPm2dot5(pm2dot5.textContent);
                     backgroundColorPm10(pm10.textContent);
@@ -130,6 +132,7 @@ function backgroundColorAqi(aqi){
         container.style.borderLeft = "0.5rem solid #7E0123";
     } else {
         container.style.backgroundColor = "white";
+        container.style.border = "1px solid rgba(128, 128, 128, 0.4)";
     }
 }
 
@@ -161,12 +164,13 @@ function backgroundColorPm2dot5(pm2dot5){
         container.style.borderLeft = "0.5rem solid #7E0123";
     } else {
         container.style.backgroundColor = "white";
+        container.style.border = "1px solid rgba(128, 128, 128, 0.4)";
     }
 }
 
 function backgroundColorPm10(pm10){
     let container = document.getElementById("pm10_box");
-    if (pm10 >= 0 && pm10 <= 54) {
+    if (pm10 >= 0.0001 && pm10 <= 54) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
@@ -192,12 +196,13 @@ function backgroundColorPm10(pm10){
         container.style.borderLeft = "0.5rem solid #7E0123";
     } else {
         container.style.backgroundColor = "white";
+        container.style.border = "1px solid rgba(128, 128, 128, 0.4)";
     }
 }
 
 function backgroundColorO3(o3){
     let container = document.getElementById("O3_box");
-    if (o3 >= 0 && o3 <= 54) {
+    if (o3 >= 0.0001 && o3 <= 54) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
@@ -223,12 +228,13 @@ function backgroundColorO3(o3){
         container.style.borderLeft = "0.5rem solid #7E0123";
     } else {
         container.style.backgroundColor = "white";
+        container.style.border = "1px solid rgba(128, 128, 128, 0.4)";
     }
 }
 
 function backgroundColorCO(co){
     let container = document.getElementById("CO_box");
-    if (co >= 0 && co <= 4.4) {
+    if (co >= 0.0001 && co <= 4.4) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
@@ -254,12 +260,13 @@ function backgroundColorCO(co){
         container.style.borderLeft = "0.5rem solid #7E0123";
     } else {
         container.style.backgroundColor = "white";
+        container.style.border = "1px solid rgba(128, 128, 128, 0.4)";
     }
 }
 
 function backgroundColorSO2(so2){
     let container = document.getElementById("SO_box");
-    if (so2 >= 0 && so2 <= 35) {
+    if (so2 >= 0.0001 && so2 <= 35) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
@@ -285,12 +292,13 @@ function backgroundColorSO2(so2){
         container.style.borderLeft = "0.5rem solid #7E0123";
     } else {
         container.style.backgroundColor = "white";
+        container.style.border = "1px solid rgba(128, 128, 128, 0.4)";
     }
 }
 
 function backgroundColorNO2(no2){
     let container = document.getElementById("NO2_box");
-    if (no2 >= 0 && no2 <= 53) {
+    if (no2 >= 0.0001 && no2 <= 53) {
         container.style.backgroundColor = "#E5F4EF";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #009865";
@@ -314,8 +322,9 @@ function backgroundColorNO2(no2){
         container.style.backgroundColor = "#F1E5E9";
         container.style.border = "none";
         container.style.borderLeft = "0.5rem solid #7E0123";
-    } else {
+    } else  {
         container.style.backgroundColor = "white";
+        container.style.border = "1px solid rgba(128, 128, 128, 0.4)";
     }
 }
 
