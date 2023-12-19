@@ -6,6 +6,7 @@
  **Website：[空氣品質監測網](https://sakanana0210.github.io/Air-Quality-Monitoring/)**
 
 # 工作分配
+
 | 姓名        | 分工內容|
 |:--------------------:|
 | 呂孟芩                | HTML架構 / CSS styling / Discord機器人|
